@@ -2,17 +2,18 @@
 
 class Action_Handler {
 public:
-	Game_State_Manager game_state_obj;
-	Save_State_Manager save_state_obj;
+	Game_State_Manager& game_state_obj;
+	Save_State_Manager& save_state_obj;
 	bool f1_pressed_last_frame;
 	bool f2_pressed_last_frame;
 	bool is_pressed_key;
 	bool is_save_flag;
 
 	Action_Handler(
-		Game_State_Manager game_state_obj,
-		Save_State_Manager save_state_obj
-	) {
+		Game_State_Manager& game_state_obj_,
+		Save_State_Manager& save_state_obj_
+	) : game_state_obj(game_state_obj_), save_state_obj(save_state_obj_) {
+
 		this->game_state_obj = game_state_obj;
 		this->save_state_obj = save_state_obj;
 		this->f1_pressed_last_frame = false;
@@ -24,8 +25,10 @@ public:
 	void
 	action_handle() {
 		// VAI TOMAR NO CU C++
-		if (this->game_state_obj.game_mode_check() == 20) {
-			printf("its 20\n");
+		int gamemode = this->game_state_obj.aGameMode.int_data;
+
+		if (gamemode != 1) {
+			//printf("TA FALSE HEIN\n");
 			this->is_save_flag = false;
 			return;
 		}
@@ -39,6 +42,7 @@ public:
 		// TODO: one day i'll fix dmy_st not being set to anything but i can't
 		// be bothered
 		//if ((fn2_button >= 1) && ((dmy_st == 5) || (dmy_st == -1))) { 
+			//printf("passed\n");
 		if (fn2_button >= 1) {
 			this->game_state_obj.game_reset();
 			this->is_pressed_key = true;
@@ -46,6 +50,7 @@ public:
 
 		if (is_f1_pressed && (!this->f1_pressed_last_frame)) {
 			action_f1();
+			//printf("TA TRUE HEIN\n");
 			this->is_save_flag = true;
 			this->is_pressed_key = true;
 		}
@@ -73,6 +78,7 @@ public:
 
 	void
 	action_f2() {
+		//printf("CARREGUEI\n");
 		this->save_state_obj.load();
 		this->game_state_obj.comb_after_timer_reset();
 	}

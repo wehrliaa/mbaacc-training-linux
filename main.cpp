@@ -2,7 +2,7 @@
 
 #include "main.h"
 
-// This was declared in process.h first.
+// This was declared in process_handling.h first.
 struct Process gProc = wait_process("MBAA.exe");
 
 // Copied from
@@ -42,36 +42,22 @@ int
 main() {
 	int prev_frame_count = 0;
 	int global_frame_count = 0;
-	float FRAME_DURATION = 0.016;
+	int FRAME_DURATION = 0.016;
 
 	Save_State_Manager save_state;
 	Game_State_Manager game_state;
 	Action_Handler action_handler = Action_Handler(game_state, save_state);
 
 	while (1) {
-		// Espera até o jogo realmente começar
+		// Sync with game's internal frame counter
 		while (global_frame_count == prev_frame_count) {
 			global_frame_count = game_state.timer_check();
 		}
 
 		prev_frame_count = global_frame_count;
 
-		if (global_frame_count <= 1) {
-			; // coisa do frame display
-		}
-
-		high_precision_sleep(0.003);
-
 		game_state.fetch_game_data();
-
-		// 1. pegar estado do player 1
-		// 2. pegar estado do player 2
-		// 3. display game state com game_state, estado do p1 e p2, e frame
-		// indicator
-
 		action_handler.action_handle();
-
-		high_precision_sleep(FRAME_DURATION);
 	}
 
 	return 0;

@@ -11,7 +11,12 @@ public:
 	MemoryBlock aDummyState        = MemoryBlock(0x34D7F8, 2);
 	MemoryBlock aFN1Key            = MemoryBlock(0x37144C, 1);
 	MemoryBlock aFN2Key            = MemoryBlock(0x37144D, 1);
+
+	// 20 = css
+	// 8 = vs screen
+	// 1 = actual match
 	MemoryBlock aGameMode          = MemoryBlock(0x14EEE8, 2);
+
 	MemoryBlock aMaxDamage         = MemoryBlock(0x157E0C, 4);
 	MemoryBlock aRecordingMode     = MemoryBlock(0x155137, 2);
 	MemoryBlock aRoundReset        = MemoryBlock(0x15DEC3, 1);
@@ -42,12 +47,22 @@ public:
 	}
 
 	void
+	comb_after_timer_reset() {
+		this->aCombAfterTimer.write_memory((char*)"\xff", 0, false);
+	}
+
+	void
 	fetch_game_data() {
 		this->aTimer.read_memory(false);
 		this->aFN1Key.read_memory(false);
 		this->aFN2Key.read_memory(false);
 		this->aDummyState.read_memory(false);
 		this->aGameMode.read_memory(false);
+	}
+
+	int
+	game_mode_check() {
+		return this->aGameMode.read_memory(false);
 	}
 
 	void
@@ -65,19 +80,9 @@ public:
 		this->aStopFlag.write_memory((char*)"\x00", 0, false);
 	}
 
-	void
-	comb_after_timer_reset() {
-		this->aCombAfterTimer.write_memory((char*)"\xff", 0, false);
-	}
-
 	int
 	timer_check() {
 		return this->aTimer.read_memory(false);
-	}
-
-	int
-	game_mode_check() {
-		return this->aGameMode.read_memory(false);
 	}
 
 };
