@@ -16,8 +16,8 @@ Some code was taken from [Fang's training tool](https://github.com/fangdreth/MBA
 
 ### Known issues
 
-- [ ] Game crashes after going back to css, then back again to training mode, while having a savestate from previous session
-- [ ] Sometimes loading state doesn't work. Probably something to do with `high_precision_sleep`
+- [X] ~~Game crashes after going back to css, then back again to training mode, while having a savestate from previous session~~
+- [X] ~~Sometimes loading state doesn't work. Probably something to do with `high_precision_sleep`~~
 
 ## Compiling
 

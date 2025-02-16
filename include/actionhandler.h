@@ -25,14 +25,6 @@ public:
 	void
 	action_handle() {
 		// VAI TOMAR NO CU C++
-		int gamemode = this->game_state_obj.aGameMode.int_data;
-
-		if (gamemode != 1) {
-			//printf("TA FALSE HEIN\n");
-			this->is_save_flag = false;
-			return;
-		}
-
 		int fn1_button = this->game_state_obj.aFN1Key.read_memory(false);
 		int fn2_button = this->game_state_obj.aFN2Key.read_memory(false);
 		//int dmy_st = this->game_state_obj.aDummyState.read_memory(false);
@@ -50,7 +42,6 @@ public:
 
 		if (is_f1_pressed && (!this->f1_pressed_last_frame)) {
 			action_f1();
-			//printf("TA TRUE HEIN\n");
 			this->is_save_flag = true;
 			this->is_pressed_key = true;
 		}
@@ -78,7 +69,6 @@ public:
 
 	void
 	action_f2() {
-		//printf("CARREGUEI\n");
 		this->save_state_obj.load();
 		this->game_state_obj.comb_after_timer_reset();
 	}
