@@ -3,15 +3,34 @@
 #include "main.h"
 
 // This was declared in process_handling.h first.
-struct Process gProc = wait_process("MBAA.exe");
+struct Process gProc;
+
+void
+signal_handler(int signum) {
+	HANDLE han = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO cursorInfo;
+	GetConsoleCursorInfo(han, &cursorInfo);
+	cursorInfo.bVisible = true;
+	SetConsoleCursorInfo(han, &cursorInfo);
+
+	printf("\n\n");
+	exit(signum);
+}
 
 int
 main() {
+	signal(SIGINT, signal_handler);
+	signal(SIGTERM, signal_handler);
+
 	HANDLE han = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_CURSOR_INFO cursorInfo;
 	GetConsoleCursorInfo(han, &cursorInfo);
 	cursorInfo.bVisible = false;
 	SetConsoleCursorInfo(han, &cursorInfo);
+
+	system("cls");
+
+ 	gProc = wait_process("MBAA.exe");
 
 	int prev_frame_count = 0;
 	int global_frame_count = 0;
