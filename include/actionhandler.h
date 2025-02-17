@@ -8,6 +8,7 @@ public:
 	bool f2_pressed_last_frame;
 	bool is_pressed_key;
 	bool is_save_flag;
+	int fn1_frames;
 
 	Action_Handler(
 		Game_State_Manager& game_state_obj_,
@@ -20,6 +21,7 @@ public:
 		this->f2_pressed_last_frame = false;
 		this->is_pressed_key = false;
 		this->is_save_flag = false;
+		this->fn1_frames = 0;
 	}
 
 	void
@@ -35,16 +37,21 @@ public:
 		// be bothered
 		//if ((fn2_button >= 1) && ((dmy_st == 5) || (dmy_st == -1))) { 
 			//printf("passed\n");
-		if (fn2_button >= 1) {
-			this->game_state_obj.game_reset();
+		if (fn2_button >= 1)
 			this->is_pressed_key = true;
-		}
 
-		if (is_f1_pressed && (!this->f1_pressed_last_frame)) {
-			action_f1();
-			this->is_save_flag = true;
-			this->is_pressed_key = true;
-		}
+		if (is_f1_pressed) {
+			this->fn1_frames += 1;
+			if (this->fn1_frames == 1) { // Not being held
+				action_f1();
+				this->is_save_flag = true;
+				this->is_pressed_key = true;
+			} else { // Being held
+				if (this->fn1_frames >= 60)
+					this->is_save_flag = false;
+			}
+		} else
+			this->fn1_frames = 0;
 
 		this->f1_pressed_last_frame = is_f1_pressed;
 
@@ -59,12 +66,25 @@ public:
 			this->is_pressed_key = false;
 			this->game_state_obj.play();
 		}
+		
+		if (this->is_save_flag == true) {
+			printf("\rSavestate ");
+			set_color(10, 0);
+			printf("SET");
+			set_color(7, 0);
+			printf(".          ");
+		} else {
+			printf("\rSavestate ");
+			set_color(12, 0);
+			printf("NOT SET");
+			set_color(7, 0);
+			printf(".          ");
+		}
 	}
 
 	void
 	action_f1() {
 		this->save_state_obj.save();
-		this->game_state_obj.pause();
 	}
 
 	void

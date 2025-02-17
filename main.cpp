@@ -7,6 +7,12 @@ struct Process gProc = wait_process("MBAA.exe");
 
 int
 main() {
+	HANDLE han = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO cursorInfo;
+	GetConsoleCursorInfo(han, &cursorInfo);
+	cursorInfo.bVisible = false;
+	SetConsoleCursorInfo(han, &cursorInfo);
+
 	int prev_frame_count = 0;
 	int global_frame_count = 0;
 
@@ -19,6 +25,7 @@ main() {
 
 		if (game_state.aGameMode.int_data == 20) {
 			action_handler.is_save_flag = false;
+			printf("\rIn character select...            ");
 		}
 
 		// Everything below this chunk of code is synced with the game's
