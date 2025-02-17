@@ -9,8 +9,7 @@ Some code was taken from [Fang's training tool](https://github.com/fangdreth/MBA
 ## TODO
 
 - [X] Savestates (FN1 to save, FN2 to load)
-- * [ ] Way to clear savestate
-- * [ ] F1 and F2 keys
+- * [X] Way to clear savestate (Hold FN1 for 1 second)
 - [ ] Frame indicator bar display thing
 - [ ] Hitboxes...?
 
