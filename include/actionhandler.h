@@ -35,10 +35,13 @@ public:
 
 		// TODO: one day i'll fix dmy_st not being set to anything but i can't
 		// be bothered
-		//if ((fn2_button >= 1) && ((dmy_st == 5) || (dmy_st == -1))) { 
+		//if ((fn2_button >= 1) && ((dmy_st == 5) || (dmy_st == -1))) {
 			//printf("passed\n");
-		if (fn2_button >= 1)
+		if (fn2_button >= 1) {
+			if (this->is_save_flag == true)
+				this->game_state_obj.game_reset();
 			this->is_pressed_key = true;
+		}
 
 		if (is_f1_pressed) {
 			this->fn1_frames += 1;
@@ -85,6 +88,7 @@ public:
 	void
 	action_f1() {
 		this->save_state_obj.save();
+		this->game_state_obj.pause();
 	}
 
 	void
