@@ -11,7 +11,6 @@ Some code was taken from [Fang's training tool](https://github.com/fangdreth/MBA
 - [X] Savestates (FN1 to save, FN2 to load)
 - * [X] Way to clear savestate (Hold FN1 for 1 second)
 - [ ] Frame indicator bar display thing
-- [ ] Hitboxes...?
 
 ### Known issues
 
@@ -23,13 +22,6 @@ Some code was taken from [Fang's training tool](https://github.com/fangdreth/MBA
 Only dependency is `mingw-w64`. Run `make`, and you should get a binary called `training.exe`.
 
 Doesn't matter whether you run it before or after opening the game.
-
-## Why
-
-1. I want savestates
-2. Fang's training tool doesn't work
-3. kosunan's training tool doesn't work
-4. I'm tired of messing with `winetricks` and waiting for Wine updates just to have nothing work in the end
 
 ## License
 
