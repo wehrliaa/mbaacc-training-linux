@@ -12,11 +12,6 @@ Some code was taken from [Fang's training tool](https://github.com/fangdreth/MBA
 - * [X] Way to clear savestate (Hold FN1 for 1 second)
 - [ ] Frame indicator bar display thing
 
-### Known issues
-
-- [X] ~~Game crashes after going back to css, then back again to training mode, while having a savestate from previous session~~
-- [X] ~~Sometimes loading state doesn't work. Probably something to do with `high_precision_sleep`~~
-
 ## Compiling
 
 Only dependency is `mingw-w64`. Run `make`, and you should get a binary called `training.exe`.
