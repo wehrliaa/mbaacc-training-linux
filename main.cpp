@@ -50,8 +50,10 @@ main() {
 		// Everything below this chunk of code is synced with the game's
 		// framerate.
 		global_frame_count = game_state.timer_check();
-		if (global_frame_count == prev_frame_count)
+		if (global_frame_count == prev_frame_count) {
+			Sleep(2);
 			continue;
+		}
 
 		prev_frame_count = global_frame_count;
 
